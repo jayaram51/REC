@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f7fb;
+    }
+
+    .register-container {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 40px 30px;
+      width: 380px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 26px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+      text-align: left;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafafa;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #4a90e2;
+      background: #fff;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 12px;
+      left: 14px;
+      font-size: 14px;
+      color: #777;
+      pointer-events: none;
+      transition: 0.3s;
+      background: #fff;
+      padding: 0 5px;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -8px;
+      left: 10px;
+      font-size: 12px;
+      color: #4a90e2;
+    }
+
+    /* Password eye icon */
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper span {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      color: #777;
+    }
+
+    .btn {
+      background: #4a90e2;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #357abd;
+    }
+
+    .login-text {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .login-text a {
+      color: #4a90e2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-text a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Create Account</h2>
+    <form>
+      <div class="input-group">
+        <input type="text" id="fullname" placeholder=" " required>
+        <label for="fullname">Full Name</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" placeholder=" " required>
+        <label for="email">Email</label>
+      </div>
+
+      <div class="input-group password-wrapper">
+        <input type="password" id="password" placeholder=" " required>
+        <label for="password">Password</label>
+        <span id="togglePassword">👁️</span>
+      </div>
+
+      <div class="input-group password-wrapper">
+        <input type="password" id="confirm" placeholder=" " required>
+        <label for="confirm">Confirm Password</label>
+        <span id="toggleConfirm">👁️</span>
+      </div>
+
+      <button type="submit" class="btn">Register</button>
+
+      <p class="login-text">Already have an account? <a href="./login.html">Login</a></p>
+    </form>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuZXZx7DCRitt_4E2XIOmknhqHEUTUXL0",
+      authDomain: "student-326fc.firebaseapp.com",
+      databaseURL: "https://student-326fc-default-rtdb.firebaseio.com",
+      projectId: "student-326fc",
+      storageBucket: "student-326fc.firebasestorage.app",
+      messagingSenderId: "583442488877",
+      appId: "1:583442488877:web:db583172fc4594a11122a4",
+      measurementId: "G-7RQDEMGJYG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+
+    // Toggle password visibility
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+    togglePassword.addEventListener("click", () => {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+      togglePassword.textContent = type === "password" ? "👁️" : "🙈";
+    });
+
+    const confirmInput = document.getElementById("confirm");
+    const toggleConfirm = document.getElementById("toggleConfirm");
+    toggleConfirm.addEventListener("click", () => {
+      const type = confirmInput.getAttribute("type") === "password" ? "text" : "password";
+      confirmInput.setAttribute("type", type);
+      toggleConfirm.textContent = type === "password" ? "👁️" : "🙈";
+    });
+
+    // Handle form submit
+    const form = document.querySelector("form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = passwordInput.value;
+      const confirm = confirmInput.value;
+
+      if (!email || !password || !confirm) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Registration successful!");
+        window.location.href = "./login.html";
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    });
+  </script>
+</body>
+</html>

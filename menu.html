@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>College Canteen</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --accent: #f97316; --cardRadius:14px; --softShadow:0 8px 30px rgba(17,24,39,0.06); }
+    .hero-gradient {  background-image: url( https://www.raghuenggcollege.com/wp-content/uploads/2023/06/cafeteria-banner-1.jpg  )}
+    .glass-card { border-radius: var(--cardRadius); box-shadow: var(--softShadow); background:white; }
+    .category-card { border-radius:12px; padding:28px; min-height:170px; display:flex; flex-direction:column; justify-content:center; }
+    .card-cta { background:var(--accent); color:white; padding:8px 14px; border-radius:999px; font-weight:600; font-size:.9rem; }
+    .nav-pill { padding:8px 14px; border-radius:999px; cursor:pointer; }
+    .item-card { border-radius:12px; padding:14px; background:white; border:1px solid #f1f5f9; transition: transform .18s, box-shadow .18s; }
+    .item-card:hover { transform: translateY(-6px); box-shadow:0 10px 30px rgba(2,6,23,0.06); }
+    .unavailable { opacity:.5; pointer-events:none; filter:grayscale(.15); }
+    .hero-inner { max-width:1100px; margin:0 auto; padding:72px 20px; }
+    .accent-underline { width:48px; height:4px; border-radius:8px; background:linear-gradient(90deg, rgba(249,115,22,1), rgba(34,197,94,0.9)); margin:8px auto 0; }
+    .tab-btn { padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:600; }
+    footer { background: linear-gradient(180deg,#0f172a,#0b1320); color:#cbd5e1; padding:40px 18px; }
+    @media (min-width:1280px){ .hero-inner { padding:110px 20px; } }
+
+    /* modal image styling */
+    .qr-img { max-width: 260px; width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto; }
+    .payment-qr-wrap { text-align:center; padding: 10px; }
+    .btn-primary { background: #f97316; color: #fff; padding: 10px 14px; border-radius: 10px; font-weight:600; }
+  </style>
+</head>
+<body>
+
+  <header class="fixed w-full top-0 left-0 z-50  backdrop-blur-md border-b bg-violet-100">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+      <div class="flex items-center gap-3">
+        <div class="text-2xl nav-pill  nav-pill bg-violet-50 text-brown-700 flex items-center gap-2">
+          <span class="sr-only">College Canteen</span>
+          <span class="text-lg" >COLLEGE CANTEEN</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 nav-pill bg-violet-50 text-brown-900 ">
+        <a href="#home" class="hover:scale-[1.02]" >Home</a>
+        <a href="#menu" class="hover:scale-[1.02]">Menu</a>
+        <a href="#contact" class="hover:scale-[1.02]">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="ordersNavBtn" class="md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm bg-violet-50 border shadow-sm hover:shadow-md">
+          📝 Orders
+          <span id="ordersBadge" class="ml-2 text-xs bg-red-500 text-white rounded-full px-2 py-0.5 hidden">0</span>
+        </button>
+
+        <button id="cartNavBtn" class="flex items-center gap-2 px-4 py-2 rounded-full text-sm nav-pill bg-violet-50 text-brown-700 text-black shadow hover:scale-[1.02]">
+          🛒 Cart
+          <span id="cartNavCount" class="ml-2 font-bold">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+<section id="home" class="hero-gradient min-h-[64vh] pt-24">
+  </div>
+</section>
+
+
+
+
+  <section class="max-w-7xl mx-auto px-6 -mt-12 relative z-20 pb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="category-card glass-card" style="background: linear-gradient(135deg,#fff7ed,#fff4e6);">
+        <div class="text-orange-400 text-2xl mb-3">☀️</div>
+        <h3 class="text-lg font-semibold">Breakfast</h3>
+        <p class="text-sm text-slate-500 mt-2">Start your day with delicious breakfast options.</p>
+        <div class="mt-4"><a class="nav-pill bg-orange-100 text-orange-600" onclick="filterTab('breakfast')">View Menu</a></div>
+      </div>
+
+      <div class="category-card glass-card" style="background: linear-gradient(135deg,#fffbeb,#fff7ed);">
+        <div class="text-amber-500 text-2xl mb-3">🍽️</div>
+        <h3 class="text-lg font-semibold">Lunch</h3>
+        <p class="text-sm text-slate-500 mt-2">Hearty lunch specials prepared fresh daily.</p>
+        <div class="mt-4"><a class="nav-pill bg-amber-100 text-amber-700" onclick="filterTab('lunch')">View Menu</a></div>
+      </div>
+
+      <div class="category-card glass-card" style="background: linear-gradient(135deg,#ecfdf5,#f0fdf4);">
+        <div class="text-purple-500 text-2xl mb-3">🌙</div>
+        <h3 class="text-lg font-semibold">Dinner</h3>
+        <p class="text-sm text-slate-500 mt-2">Delightful dinner selections and comfort food.</p>
+        <div class="mt-4"><a class="nav-pill bg-violet-100 text-violet-700" onclick="filterTab('dinner')">View Menu</a></div>
+      </div>
+
+      <div class="category-card glass-card" style="background: linear-gradient(135deg,#f0fdf4,#ecfdf5);">
+        <div class="text-green-500 text-2xl mb-3">🍪</div>
+        <h3 class="text-lg font-semibold">Snacks</h3>
+        <p class="text-sm text-slate-500 mt-2">Quick bites and refreshments throughout the day.</p>
+        <div class="mt-4"><a class="nav-pill bg-emerald-100 text-emerald-700" onclick="filterTab('snacks')">View Menu</a></div>
+      </div>
+    </div>
+  </section>
+
+  <main id="menu" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-slate-900">Today's Special Menu</h2>
+      <div class="accent-underline mx-auto"></div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 justify-center mb-8">
+      <button class="tab-btn px-4 py-2 bg-white border" data-tab="breakfast" onclick="selectTab(event)">Breakfast</button>
+      <button class="tab-btn px-4 py-2 bg-white border" data-tab="lunch" onclick="selectTab(event)">Lunch</button>
+      <button class="tab-btn px-4 py-2 bg-white border" data-tab="snacks" onclick="selectTab(event)">Snacks</button>
+      <button class="tab-btn px-4 py-2 bg-white border" data-tab="beverages" onclick="selectTab(event)">Beverages</button>
+      <button class="tab-btn px-4 py-2 bg-white border" data-tab="dinner" onclick="selectTab(event)">Dinner</button>
+    </div>
+
+    <div id="itemsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <div id="cartModal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-4 border-b flex items-center justify-between">
+        <div class="font-bold">Your Cart</div>
+        <button id="closeCart" class="text-xl">&times;</button>
+      </div>
+      <div class="p-4 max-h-[60vh] overflow-y-auto">
+        <div id="cartItems" class="space-y-3"></div>
+        <div id="emptyCart" class="text-center py-8 text-slate-500">Your cart is empty</div>
+      </div>
+      <div id="cartFooter" class="p-4 border-t hidden">
+        <div class="flex items-center justify-between mb-3">
+          <div class="font-semibold">Total: ₹<span id="cartTotal">0</span></div>
+          <button id="proceedToPayment" class="bg-emerald-600 text-white px-4 py-2 rounded-md">Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT MODAL: displays QR image + Payment Done button -->
+  <div id="paymentModal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-4 border-b flex items-center justify-between">
+        <div class="font-bold">Scan & Pay</div>
+        <button id="closePayment" class="text-xl">&times;</button>
+      </div>
+
+      <div class="p-6 text-center">
+        <div class="text-sm text-slate-600">Total Amount</div>
+        <div class="text-3xl font-bold text-emerald-600 my-4">₹<span id="paymentTotal">0</span></div>
+
+        <!-- QR image (uploaded to container). Replace path if needed. -->
+        <div class="payment-qr-wrap">
+          <img id="upiQrImg" class="qr-img" src="qrcode.jpg" alt="UPI QR">
+        </div>
+
+        <div class="mt-6">
+          <button id="paymentDoneBtn" class="btn-primary">Payment Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="successModal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 text-center">
+      <div class="text-4xl mb-2">🎉</div>
+      <h3 class="text-xl font-bold text-emerald-600 mb-2">Order Placed Successfully!</h3>
+      <p class="text-slate-600 mb-2">Your order is being prepared.</p>
+      <p class="text-sm text-slate-400 mb-4">Order ID: <span id="orderId"></span></p>
+      <button id="closeSuccess" class="bg-orange-500 text-white px-6 py-2 rounded-full">Continue</button>
+    </div>
+  </div>
+
+  <div id="ordersModal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="p-4 border-b flex items-center justify-between">
+        <div class="font-bold">Orders</div>
+        <button id="closeOrders" class="text-xl">&times;</button>
+      </div>
+      <div id="ordersList" class="p-4 space-y-3 max-h-[60vh] overflow-y-auto">
+        <p class="text-center text-slate-500">Fetching orders...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer id="contact" class="mt-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h4 class="text-orange-500 font-bold mb-3">Contact Information</h4>
+        <p class="text-sm text-slate-300">Raghu Engineering College, Dakkamari</p>
+        <p class="text-sm text-slate-300 mt-1">08922-248002 / 248002</p>
+        <p class="text-sm text-slate-300 mt-1">info@raghuenggcollege.in</p>
+      </div>
+      <div>
+        <h4 class="text-orange-500 font-bold mb-3">About Us</h4>
+        <p class="text-sm text-slate-300">We provide fresh, nutritious meals to students with care and dedication. Affordable prices and quick service.</p>
+      </div>
+      <div>
+        <h4 class="text-orange-500 font-bold mb-3">Follow Us</h4>
+        <div class="flex gap-3 mt-2">
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center">f</div>
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center">t</div>
+          <div class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center">i</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-sm text-slate-400 mt-8 pb-8">© 2025 College Canteen. All copy rights reserved.</div>
+  </footer>
+
+  <!-- =========================
+       JAVASCRIPT (Integrated Full)
+       ========================= -->
+ <script type="module">
+/* ========= Firebase imports ========= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getDatabase, ref, set, onValue, runTransaction, remove, get, child
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+/* ======== Initialize student DB (read completed orders) ========
+   NOTE: keep your existing firebase configs below — these are the
+   same apps you provided earlier. If you have different configs,
+   replace them accordingly.
+*/
+const studentApp = initializeApp({
+  apiKey: "AIzaSyDuZXZx7DCRitt_4E2XIOmknhqHEUTUXL0",
+  authDomain: "student-326fc.firebaseapp.com",
+  databaseURL: "https://student-326fc-default-rtdb.firebaseio.com",
+  projectId: "student-326fc"
+}, "studentApp");
+const studentDB = getDatabase(studentApp);
+
+/* ======== checkorders DB (primary orders DB) ======== */
+const thirdApp = initializeApp({
+  apiKey: "AIzaSyCGMvFT7bJjQVJGlU3qZdfZEq9W_jZpH8g",
+  authDomain: "checkorder-52699.firebaseapp.com",
+  databaseURL: "https://checkorder-52699-default-rtdb.firebaseio.com"
+}, "thirdApp");
+const thirdDB = getDatabase(thirdApp);
+
+/* ======== Availability DB (unchanged) ======== */
+const fourthApp = initializeApp({
+  apiKey: "AIzaSyAO3rj5BVnuI0xgvVypjGSwCqZuiPiLIIE",
+  authDomain: "checkavailability-4daf3.firebaseapp.com",
+  databaseURL: "https://checkavailability-4daf3-default-rtdb.firebaseio.com"
+}, "fourthApp");
+const fourthDB = getDatabase(fourthApp);
+
+/* ======== STAFF DB (new) - listen to staff verifiedOrders =========
+   The staff config you provided is used here. This app only reads
+   verifiedOrders/ and displays them in the Orders modal.
+*/
+const staffApp = initializeApp({
+  apiKey: "AIzaSyCN5ngY-q2DFfce2Q-Ju2WtreemecrrGkQ",
+  authDomain: "staff-e61b9.firebaseapp.com",
+  databaseURL: "https://staff-e61b9-default-rtdb.firebaseio.com",
+  projectId: "staff-e61b9",
+  storageBucket: "staff-e61b9.firebasestorage.app",
+  messagingSenderId: "532002565855",
+  appId: "1:532002565855:web:811780a75dcc57b85a036a",
+  measurementId: "G-642VKD43HX"
+}, "staffApp");
+const staffDB = getDatabase(staffApp);
+
+/* ========= Menu data (unchanged) ========= */
+const menuItems = [
+  {id:1,name:"puri",price:35,category:"breakfast"},
+  {id:2,name:"idly",price:25,category:"breakfast"},
+  {id:3,name:"dosa",price:20,category:"breakfast"},
+  {id:4,name:"onion dosa",price:30,category:"breakfast"},
+  {id:5,name:"fried rice",price:65,category:"lunch"},
+  {id:6,name:"chicken fried rice",price:75,category:"lunch"},
+  {id:7,name:"veg noodles",price:60,category:"lunch"},
+  {id:8,name:"egg noodles",price:70,category:"lunch"},
+  {id:9,name:"chicken egg noodles",price:80,category:"lunch"},
+  {id:10,name:"samosa",price:10,category:"snacks"},
+  {id:11,name:"veg puff",price:15,category:"snacks"},
+  {id:12,name:"egg puff",price:25,category:"snacks"},
+  {id:13,name:"lays",price:35,category:"snacks"},
+  {id:14,name:"thumbs-up",price:15,category:"beverages"},
+  {id:15,name:"coco-cola",price:20,category:"beverages"},
+  {id:16,name:"roti with chicken curry",price:110,category:"dinner"},
+  {id:17,name:"roti with dal",price:75,category:"dinner"},
+  {id:18,name:"roti with paneer",price:90,category:"dinner"}
+];
+
+/* ========= State & DOM ========= */
+let cart = [];
+const availabilityData = {}; // keyed by normalized name
+const itemsContainer = document.getElementById('itemsContainer');
+const cartNavBtn = document.getElementById('cartNavBtn');
+const cartNavCount = document.getElementById('cartNavCount');
+const cartModal = document.getElementById('cartModal');
+const cartItemsContainer = document.getElementById('cartItems');
+const emptyCart = document.getElementById('emptyCart');
+const cartFooter = document.getElementById('cartFooter');
+const cartTotalEl = document.getElementById('cartTotal');
+const heroCart = document.getElementById('heroCart');
+
+const paymentModal = document.getElementById('paymentModal');
+const paymentTotal = document.getElementById('paymentTotal');
+const paymentDoneBtn = document.getElementById('paymentDoneBtn');
+const closePayment = document.getElementById('closePayment');
+
+const successModal = document.getElementById('successModal');
+const orderIdEl = document.getElementById('orderId');
+const closeSuccess = document.getElementById('closeSuccess');
+
+const ordersNavBtn = document.getElementById('ordersNavBtn');
+const ordersModal = document.getElementById('ordersModal');
+const ordersList = document.getElementById('ordersList');
+const ordersBadge = document.getElementById('ordersBadge');
+
+/* ========= Helpers ========= */
+function formatShortId(val) {
+  const s = String(val || '');
+  if (s.length >= 3) return s.slice(-3);
+  return s.padStart(3, '0');
+}
+function normalizeName(n) {
+  return String(n || '').trim().toLowerCase().replace(/\s+/g,' ');
+}
+function escapeHtml(str){
+  if (str === undefined || str === null) return '';
+  return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+}
+
+/* ========= Render Items ========= */
+function renderAllItems(filter = 'all') {
+  itemsContainer.innerHTML = '';
+  const list = (filter === 'all') ? menuItems : menuItems.filter(i => i.category === filter);
+  list.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'item-card flex items-center justify-between gap-4';
+    // store normalized name for availability matching
+    const normName = normalizeName(item.name);
+    card.dataset.nameNorm = normName;
+    card.innerHTML = `
+      <div>
+        <div class="font-semibold text-slate-900">${escapeHtml(item.name)}</div>
+        <div class="text-xs text-slate-500 mt-1">${escapeHtml(item.category)}</div>
+      </div>
+      <div class="text-right flex items-center gap-4">
+        <div class="text-lg font-semibold">₹${item.price}</div>
+        <button class="add-btn bg-emerald-600 text-white px-3 py-1 rounded-md text-sm" data-id="${item.id}">Add</button>
+      </div>
+    `;
+    itemsContainer.appendChild(card);
+  });
+  updateAvailabilityUI();
+}
+
+/* ========= Availability (realtime) ========= */
+function listenToAvailability(){
+  try {
+    const availabilityRef = ref(fourthDB, "availability/");
+    onValue(availabilityRef, snapshot => {
+      if (snapshot.exists()) {
+        const raw = snapshot.val();
+        // normalize keys into availabilityData
+        Object.keys(raw || {}).forEach(k => {
+          availabilityData[normalizeName(k)] = raw[k];
+        });
+        // also if availability entries use nested objects with name field:
+        Object.values(raw || {}).forEach(v => {
+          if (v && typeof v === 'object' && v.name) {
+            availabilityData[normalizeName(v.name)] = (v.available === undefined) ? true : Boolean(v.available);
+          }
+        });
+        updateAvailabilityUI();
+      }
+    });
+  } catch (err) {
+    console.warn('Availability listener error', err);
+  }
+}
+function updateAvailabilityUI(){
+  document.querySelectorAll('.item-card').forEach(card => {
+    const nameNorm = card.dataset.nameNorm || normalizeName(card.querySelector('.font-semibold')?.textContent || '');
+    if (!nameNorm) return;
+    const addBtn = card.querySelector('.add-btn');
+    const avail = (availabilityData[nameNorm] === undefined) ? true : Boolean(availabilityData[nameNorm]);
+    if (avail === false) {
+      card.classList.add('unavailable');
+      if (addBtn) { addBtn.textContent = 'Unavailable'; addBtn.classList.remove('bg-emerald-600'); addBtn.classList.add('bg-gray-300'); addBtn.disabled = true; }
+    } else {
+      card.classList.remove('unavailable');
+      if (addBtn) { addBtn.textContent = 'Add'; addBtn.classList.remove('bg-gray-300'); addBtn.classList.add('bg-emerald-600'); addBtn.disabled = false; }
+    }
+  });
+}
+
+/* ========= Cart logic ========= */
+function findCartItem(id) { return cart.find(i => i.id === id); }
+function addToCartById(id) {
+  const item = menuItems.find(i => i.id === id);
+  if (!item) return;
+  const existing = findCartItem(id);
+  if (existing) existing.qty++;
+  else cart.push({...item, qty: 1});
+  updateCartUI();
+}
+function updateCartUI() {
+  cartItemsContainer.innerHTML = '';
+  if (cart.length === 0) {
+    emptyCart.classList.remove('hidden');
+    cartFooter.classList.add('hidden');
+    cartNavCount.textContent = 0;
+    cartTotalEl.textContent = 0;
+    paymentTotal.textContent = 0;
+    return;
+  }
+  emptyCart.classList.add('hidden');
+  cartFooter.classList.remove('hidden');
+  let total = 0;
+  let totalQty = 0;
+  cart.forEach(item => {
+    const itemTotal = (Number(item.price) || 0) * (Number(item.qty) || 0);
+    total += itemTotal;
+    totalQty += Number(item.qty) || 0;
+    const div = document.createElement('div');
+    div.className = 'flex items-center justify-between bg-orange-50 p-3 rounded-md';
+    div.innerHTML = `
+      <div>
+        <div class="font-semibold">${escapeHtml(item.name)}</div>
+        <div class="text-xs text-slate-500">₹${item.price} each • ₹${itemTotal} total</div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="decrease px-2 py-1 bg-white border rounded" data-id="${item.id}">-</button>
+        <div class="px-2">${item.qty}</div>
+        <button class="increase px-2 py-1 bg-white border rounded" data-id="${item.id}">+</button>
+      </div>
+    `;
+    cartItemsContainer.appendChild(div);
+  });
+  cartTotalEl.textContent = total;
+  paymentTotal.textContent = total;
+  cartNavCount.textContent = totalQty;
+}
+
+/* ========= Events (cart/menu) ========= */
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.classList.contains('add-btn')) {
+    const id = parseInt(e.target.dataset.id);
+    addToCartById(id);
+  }
+  if (e.target && (e.target.id === 'heroCart' || e.target.closest('#heroCart'))) showCart();
+});
+
+cartItemsContainer.addEventListener('click', e => {
+  const id = parseInt(e.target.dataset.id);
+  if (!id) return;
+  const item = findCartItem(id);
+  if (!item) return;
+  if (e.target.classList.contains('increase')) item.qty++;
+  else if (e.target.classList.contains('decrease')) {
+    item.qty--;
+    if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  }
+  updateCartUI();
+});
+
+cartNavBtn.addEventListener('click', showCart);
+document.getElementById('closeCart').addEventListener('click', () => cartModal.classList.add('hidden'));
+function showCart(){ cartModal.classList.remove('hidden'); updateCartUI(); }
+function hideCart(){ cartModal.classList.add('hidden'); }
+
+// Proceed to payment: show QR modal (no direct UPI deep link)
+document.getElementById('proceedToPayment').addEventListener('click', () => {
+  if (cart.length === 0) return alert('Cart is empty!');
+  hideCart();
+  const total = cart.reduce((s,it)=>s + (Number(it.price)||0) * (Number(it.qty)||0), 0);
+  paymentTotal.textContent = total;
+
+  // Save current cart temporarily so Payment Done knows what to push
+  sessionStorage.setItem('pendingOrderForQR', JSON.stringify({
+    createdAt: Date.now(),
+    totalAmount: total,
+    items: cart.map(i => ({ name: i.name, price: i.price, qty: i.qty }))
+  }));
+
+  // show modal with QR/UPI id (user will scan using their phone UPI app)
+  paymentModal.classList.remove('hidden');
+});
+
+closePayment.addEventListener('click', () => paymentModal.classList.add('hidden'));
+
+/* ========= When user clicks "Payment Done" -> push order to checkorders ========= */
+paymentDoneBtn.addEventListener('click', async () => {
+  const raw = sessionStorage.getItem('pendingOrderForQR');
+  if (!raw) {
+    alert('No pending payment found. Please try again.');
+    return;
+  }
+  paymentDoneBtn.disabled = true;
+  paymentDoneBtn.textContent = 'Submitting...';
+
+  const pending = JSON.parse(raw);
+  try {
+    // atomic increment on thirdDB
+    const counterRef = ref(thirdDB, 'lastOrderId');
+    const tx = await runTransaction(counterRef, (current) => (current || 0) + 1);
+    const newOrderId = tx.snapshot.val();
+
+    const orderData = {
+      orderId: newOrderId,
+      totalAmount: pending.totalAmount,
+      items: pending.items,
+      status: 'pending',
+      createdAt: Date.now()
+    };
+
+    // write to checkorders/orders/<newOrderId>
+    const orderRef = ref(thirdDB, 'orders/' + newOrderId);
+    await set(orderRef, orderData);
+
+    // UI: success modal
+    orderIdEl.textContent = formatShortId(newOrderId);
+    paymentModal.classList.add('hidden');
+    successModal.classList.remove('hidden');
+
+    // reset cart
+    cart = [];
+    updateCartUI();
+
+    // clear pending marker
+    sessionStorage.removeItem('pendingOrderForQR');
+  } catch (err) {
+    console.error('Error pushing order to checkorders', err);
+    alert('Failed to place order. See console for details.');
+  } finally {
+    paymentDoneBtn.disabled = false;
+    paymentDoneBtn.textContent = 'Payment Done';
+  }
+});
+
+// ensure continue button closes success modal properly
+closeSuccess.addEventListener('click', () => {
+  successModal.classList.add('hidden');
+});
+
+/* ========= Orders UI: read pending from checkorders and display verified/student DB in Orders tab =========
+   NOTE: Pending orders will NOT be displayed in the Orders modal.
+   - Orders placed go to thirdDB (checkorders/orders/) — still written on payment.
+   - We read staffDB/verifiedOrders and studentDB/orders (legacy) for display.
+*/
+
+let latestCheckOrders = {};
+let latestStudentVerified = {};
+let latestStaffVerified = {}; // NEW: data from staff DB
+const checkOrdersRef = ref(thirdDB, 'orders/');
+const studentVerifiedRef = ref(studentDB, 'orders/');
+const staffVerifiedRef = ref(staffDB, 'verifiedOrders/'); // staff verified orders
+const scheduledRemovals = {}; // map key -> timeout id
+const TWENTY_MINUTES = 20 * 60 * 1000;
+
+async function deleteFromBothIfExists(key) {
+  if (!key) return;
+  try {
+    // remove from both places (best-effort)
+    await remove(ref(studentDB, 'orders/' + key)).catch(()=>{});
+    await remove(ref(thirdDB, 'orders/' + key)).catch(()=>{});
+    console.log('Deleted order from both DBs:', key);
+  } catch (err) {
+    console.error('Error deleting both DB entries for', key, err);
+  }
+}
+
+function scheduleDeletion(key, verifiedAt) {
+  if (!key) return;
+  if (scheduledRemovals[key]) return; // already scheduled
+
+  const now = Date.now();
+  let removeAt = (verifiedAt && typeof verifiedAt === 'number') ? (verifiedAt + TWENTY_MINUTES) : (now + TWENTY_MINUTES);
+  const delay = Math.max(0, removeAt - now);
+
+  if (delay === 0) {
+    // immediate
+    deleteFromBothIfExists(key);
+    return;
+  }
+  const tid = setTimeout(() => {
+    deleteFromBothIfExists(key).catch(()=>{});
+    clearTimeout(tid);
+    delete scheduledRemovals[key];
+  }, delay);
+  scheduledRemovals[key] = tid;
+  console.log(`Scheduled deletion for ${key} in ${Math.round(delay/1000)}s`);
+}
+
+/* ===== Realtime listeners ===== */
+onValue(checkOrdersRef, snapshot => {
+  latestCheckOrders = snapshot.exists() ? snapshot.val() : {};
+  if (!ordersModal.classList.contains('hidden')) rebuildOrdersList();
+});
+onValue(studentVerifiedRef, snapshot => {
+  latestStudentVerified = snapshot.exists() ? snapshot.val() : {};
+  // schedule deletions for verified entries (legacy student DB entries)
+  Object.keys(latestStudentVerified || {}).forEach(key => {
+    const od = latestStudentVerified[key];
+    const verifiedAt = od && (od.pushedAt || od.verifiedAt || od.createdAt) ? (od.pushedAt || od.verifiedAt || od.createdAt) : Date.now();
+    if (Date.now() - verifiedAt >= TWENTY_MINUTES) {
+      deleteFromBothIfExists(key).catch(()=>{});
+    } else {
+      scheduleDeletion(key, verifiedAt);
+    }
+  });
+  if (!ordersModal.classList.contains('hidden')) rebuildOrdersList();
+  updateOrdersBadge();
+});
+onValue(staffVerifiedRef, snapshot => {
+  latestStaffVerified = snapshot.exists() ? snapshot.val() : {};
+  // staff entries may also include verifiedAt; schedule deletion optionally
+  Object.keys(latestStaffVerified || {}).forEach(key => {
+    const od = latestStaffVerified[key];
+    const verifiedAt = od && (od.verifiedAt || od.createdAt || od.pushedAt) ? (od.verifiedAt || od.createdAt || od.pushedAt) : Date.now();
+    scheduleDeletion(key, verifiedAt);
+  });
+  if (!ordersModal.classList.contains('hidden')) rebuildOrdersList();
+  updateOrdersBadge();
+});
+
+function updateOrdersBadge(){
+  // prefer staff verified count; fallback to student verified
+  const staffCount = Object.keys(latestStaffVerified || {}).length;
+  const studentCount = Object.keys(latestStudentVerified || {}).length;
+  const count = Math.max(staffCount, studentCount);
+  const badge = document.getElementById('ordersBadge');
+  if (count > 0) {
+    badge.classList.remove('hidden');
+    badge.textContent = count;
+  } else {
+    badge.classList.add('hidden');
+  }
+}
+
+/* ===== Build orders list (shows staff verified orders first, then completed student entries) ===== */
+function rebuildOrdersList() {
+  ordersList.innerHTML = '';
+
+  // 1) STAFF VERIFIED (primary for display)
+  const staffKeys = Object.keys(latestStaffVerified || {}).sort((a,b) => Number(b) - Number(a));
+  if (staffKeys.length > 0) {
+    const header = document.createElement('div');
+    header.className = 'mb-2 font-semibold';
+    header.textContent = 'Payment Verified Orders';
+    ordersList.appendChild(header);
+
+    staffKeys.forEach(k => {
+      const od = latestStaffVerified[k];
+      const wrap = document.createElement('div');
+      wrap.className = 'p-3 border rounded-md bg-emerald-50 mb-2';
+
+      // Build items safely (supports array or object)
+      let itemsHtml = '';
+      if (od.items && Array.isArray(od.items) && od.items.length) {
+        itemsHtml = '<div class="mt-2 text-sm text-slate-700">';
+        od.items.forEach(it => {
+          const name = escapeHtml(it && it.name ? it.name : (it && it.itemName ? it.itemName : 'Unknown'));
+          const qty = Number(it && it.qty ? it.qty : 1);
+          const price = Number(it && it.price ? it.price : 0);
+          const itemTotal = qty * price;
+          itemsHtml += `<div class="flex justify-between"><div>${name} x ${escapeHtml(String(qty))}</div>₹${escapeHtml(String(itemTotal))}</div></div>`;
+        });
+        itemsHtml += '</div>';
+      } else if (od.items && typeof od.items === 'object') {
+        itemsHtml = '<div class="mt-2 text-sm text-slate-700">';
+        Object.keys(od.items).forEach(key => {
+          const it = od.items[key];
+          const name = escapeHtml(it && it.name ? it.name : key);
+          const qty = Number(it && it.qty ? it.qty : 1);
+          const price = Number(it && it.price ? it.price : 0);
+          itemsHtml += `<div class="flex justify-between"><div>${name} x ${escapeHtml(String(qty))}</div><div>₹${escapeHtml(String(price))}</div></div>`;
+        });
+        itemsHtml += '</div>';
+      } else {
+        itemsHtml = '<div class="text-sm text-slate-500 mt-2">No item details.</div>';
+      }
+
+      const displayShort = od.orderId ? formatShortId(od.orderId) : formatShortId(k);
+      const verifiedAt = od.verifiedAt || od.pushedAt || od.createdAt;
+      wrap.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">Order #${escapeHtml(displayShort)}</div>
+          <div class="text-sm text-slate-600">Total: ₹${escapeHtml(String(od.totalAmount || 0))}</div>
+        </div>
+        ${itemsHtml}
+       
+      `;
+      ordersList.appendChild(wrap);
+    });
+  } else {
+    // No staff orders found - add small label (we still will show completed later)
+    const header = document.createElement('div');
+    header.className = 'mb-2 font-semibold text-slate-600';
+    header.textContent = 'No payment verified orders found';
+    ordersList.appendChild(header);
+  }
+
+  // NOTE: PENDING CHECKORDERS ARE INTENTIONALLY NOT DISPLAYED
+
+  // 2) FALLBACK: completed/legacy student verified entries (if any)
+  const completedKeys = Object.keys(latestStudentVerified || {}).sort((a,b) => Number(b) - Number(a));
+  if (completedKeys.length > 0) {
+    const header2 = document.createElement('div');
+    header2.className = 'mt-4 mb-2 font-semibold';
+    header2.textContent = 'Completed Orders';
+    ordersList.appendChild(header2);
+
+    completedKeys.forEach(k => {
+      const od = latestStudentVerified[k];
+      const wrap = document.createElement('div');
+      wrap.className = 'p-3 border rounded-md bg-white mb-2';
+
+      let itemsHtml = '';
+      if (od.items && Array.isArray(od.items)) {
+        itemsHtml = '<div class="mt-2 text-sm text-slate-700">';
+        od.items.forEach(it => {
+          const name = escapeHtml(it && it.name ? it.name : 'Unknown');
+          const qty = Number(it && it.qty ? it.qty : 1);
+          const price = Number(it && it.price ? it.price : 0);
+          const itemTotal = qty * price;
+          itemsHtml += `<div class="flex justify-between"><div>${name} x ${escapeHtml(String(qty))}</div><div>₹${escapeHtml(String(price))} • ₹${escapeHtml(String(itemTotal))}</div></div>`;
+        });
+        itemsHtml += '</div>';
+      } else if (od.items && typeof od.items === 'object') {
+        itemsHtml = '<div class="mt-2 text-sm text-slate-700">';
+        Object.keys(od.items).forEach(key => {
+          const it = od.items[key];
+          const name = escapeHtml(it && it.name ? it.name : key);
+          const qty = Number(it && it.qty ? it.qty : 1);
+          const price = Number(it && it.price ? it.price : 0);
+          itemsHtml += `<div class="flex justify-between"><div>${name} x ${escapeHtml(String(qty))}</div><div>₹${escapeHtml(String(price))}</div></div>`;
+        });
+        itemsHtml += '</div>';
+      } else {
+        itemsHtml = '<div class="text-sm text-slate-500 mt-2"></div>';
+      }
+
+      const displayShort = od.orderId ? formatShortId(od.orderId) : formatShortId(k);
+      const completedAt = od.pushedAt ? new Date(od.pushedAt).toLocaleString() : (od.verifiedAt ? new Date(od.verifiedAt).toLocaleString() : (od.createdAt ? new Date(od.createdAt).toLocaleString() : '—'));
+
+      wrap.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">Order #${escapeHtml(displayShort)}</div>
+          <div class="text-sm text-slate-600">Total: ₹${escapeHtml(String(od.totalAmount || 0))}</div>
+        </div>
+        ${itemsHtml}
+
+      `;
+      ordersList.appendChild(wrap);
+    });
+  } else {
+    // If no staff and no student verified orders, show spacer
+    if (!ordersList.innerHTML.includes('Staff Verified Orders')) {
+      const spacer = document.createElement('div');
+      spacer.className = 'mt-4 text-sm text-slate-500';
+      spacer.textContent = 'No Completed Orders Yet.';
+      ordersList.appendChild(spacer);
+    }
+  }
+}
+
+/* ========= Reusable verify function kept (no UI buttons call it now) =========
+   Left here in case you want to call verifyOrderToStudentDB programmatically.
+   It will push only orderId + totalAmount + pushedAt to student DB, then
+   remove the order from checkorders.
+*/
+async function verifyOrderToStudentDB(orderKey) {
+  if (!orderKey) throw new Error('Missing orderKey');
+
+  // read the order from checkorders
+  const orderSnapshot = await get(ref(thirdDB, 'orders/' + orderKey));
+  if (!orderSnapshot.exists()) {
+    alert('Order not found in checkorders.');
+    return;
+  }
+  const order = orderSnapshot.val();
+
+  // push only orderId + totalAmount + pushedAt to studentDB/orders/<orderKey>
+  const verifiedObj = {
+    orderId: order.orderId || orderKey,
+    totalAmount: order.totalAmount || (order.items ? order.items.reduce((s,i)=>s + (Number(i.price)||0)*(Number(i.qty)||0),0) : 0),
+    pushedAt: Date.now()
+  };
+
+  // write to studentDB/orders/<orderKey>
+  await set(ref(studentDB, 'orders/' + orderKey), verifiedObj).catch(err => {
+    console.error('Failed writing to student DB', err);
+    throw err;
+  });
+
+  // remove the order from checkorders (since it's verified)
+  await remove(ref(thirdDB, 'orders/' + orderKey)).catch(()=>{});
+
+  // schedule deletion for this verified entry (20 mins)
+  scheduleDeletion(orderKey, verifiedObj.pushedAt);
+}
+
+/* ========= Orders modal open/close ========= */
+if (ordersNavBtn) {
+  ordersNavBtn.addEventListener('click', () => {
+    ordersModal.classList.remove('hidden');
+    rebuildOrdersList();
+  });
+  document.getElementById('closeOrders').addEventListener('click', () => ordersModal.classList.add('hidden'));
+}
+
+/* ========= Tabs ========= */
+function clearActiveTabs(){ document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-amber-50','ring','ring-amber-100')); }
+window.selectTab = function(event){
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('bg-amber-50','ring','ring-amber-100'));
+  const btn = event.currentTarget || event;
+  const tab = (btn.dataset) ? btn.dataset.tab : 'all';
+  btn.classList.add('bg-amber-50','ring','ring-amber-100');
+  renderAllItems(tab);
+  window.scrollTo({ top: document.getElementById('menu').offsetTop - 80, behavior: 'smooth' });
+};
+window.filterTab = function(category){
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if (b.dataset.tab === category) b.classList.add('bg-amber-50','ring','ring-amber-100'); else b.classList.remove('bg-amber-50','ring','ring-amber-100');
+  });
+  renderAllItems(category);
+  window.scrollTo({ top: document.getElementById('menu').offsetTop - 80, behavior: 'smooth' });
+};
+
+/* ========= Init ========= */
+/* ===== FINAL INIT ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  // INITIAL CALL: which tab to show?
+  renderAllItems('breakfast'); // Example initial render
+  listenToAvailability();
+  updateCartUI();
+  updateOrdersBadge();
+
+  // On load: clean up any verified orders older than 20 minutes immediately (student/legacy)
+  setTimeout(() => {
+    Object.keys(latestStudentVerified || {}).forEach(k => {
+      const od = latestStudentVerified[k];
+      if (od && od.pushedAt) {
+        const age = Date.now() - od.pushedAt;
+        if (age >= TWENTY_MINUTES) {
+          deleteFromBothIfExists(k).catch(()=>{});
+        } else {
+          scheduleDeletion(k, od.pushedAt);
+        }
+      } else if (od && od.verifiedAt) {
+        const age = Date.now() - od.verifiedAt;
+        if (age >= TWENTY_MINUTES) {
+          deleteFromBothIfExists(k).catch(()=>{});
+        } else {
+          scheduleDeletion(k, od.verifiedAt);
+        }
+      } else if (od && od.createdAt) {
+        const age = Date.now() - od.createdAt;
+        if (age >= TWENTY_MINUTES) {
+          deleteFromBothIfExists(k).catch(()=>{});
+        } else {
+          scheduleDeletion(k, od.createdAt);
+        }
+      }
+    });
+  }, 1500);
+});
+</script>
+
+</body>
+</html>
