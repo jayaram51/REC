@@ -38,4 +38,7 @@ A smart web, mobile, and IoT integrated system to automate food ordering inside 
 |------|---------------|
 | Project Source Code - [ Menu page ] | [Download](https://github.com/jayaram51/REC/blob/main/menu.html) |
 | ESP8266 Code (.ino) | [Download](https://github.com/jayaram51/REC/blob/main/sketch_oct21a.ino) |
-
+| Staff dashboard | [Download](https://github.com/jayaram51/staff/blob/main/dashboard.html) |
+| Food availabilty | [Download](https://github.com/jayaram51/staff/blob/main/manageavailability.html) |
+| Payment Verification | [Download](https://github.com/jayaram51/staff/blob/main/verifypayment.html) |
+| Kitchen Orders | [Download](https://github.com/jayaram51/staff/blob/main/Kitchenorders.html) |
