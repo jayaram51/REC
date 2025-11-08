@@ -28,6 +28,6 @@ A smart web, mobile, and IoT integrated system to automate food ordering inside 
 
 | File | Download Link |
 |------|---------------|
-| Project Source Code - [ Menu page ] | [Download](https://https://github.com/jayaram51/REC/blob/main/menu.html) |
-| ESP8266 Code (.ino) | [Download](https://https://github.com/jayaram51/REC/blob/main/sketch_oct21a.ino) |
+| Project Source Code - [ Menu page ] | [Download](https://github.com/jayaram51/REC/blob/main/menu.html) |
+| ESP8266 Code (.ino) | [Download](https://github.com/jayaram51/REC/blob/main/sketch_oct21a.ino) |
 
