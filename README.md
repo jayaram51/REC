@@ -27,6 +27,9 @@ A smart web, mobile, and IoT integrated system to automate food ordering inside 
 ## Workflow of project
 <img width="1080" height="600" alt="image" src="https://github.com/user-attachments/assets/7a049cd3-c4d7-4dd8-b5f3-f8ca61143c69" />
 
+## Staff Dashboard Features
+<img width="1080" height="600" alt="image" src="https://github.com/user-attachments/assets/25a2c30f-4fac-4e62-bd2f-f7a1ffd87509" />
+
 
 ## 📂 Repository Structure
 ## 📦 Download Project Files
