@@ -24,6 +24,10 @@ A smart web, mobile, and IoT integrated system to automate food ordering inside 
 | Hardware | ESP8266, LED Display, Buzzer |
 | Payment | UPI (Manual Verification) |
 
+## Workflow of project
+<img width="1080" height="600" alt="image" src="https://github.com/user-attachments/assets/7a049cd3-c4d7-4dd8-b5f3-f8ca61143c69" />
+
+
 ## 📂 Repository Structure
 ## 📦 Download Project Files
 
